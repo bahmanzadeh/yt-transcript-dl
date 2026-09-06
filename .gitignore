@@ -1,4 +1,11 @@
 # Byte-compiled / optimized / DLL files
+# Project-generated and machine-local files
+.DS_Store
+.vscode/
+src/yt_transcript_dl/_version.py
+transcripts/
+ytt-dl/
+
 __pycache__/
 *.py[codz]
 *$py.class

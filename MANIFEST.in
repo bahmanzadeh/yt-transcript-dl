@@ -1,0 +1,5 @@
+include README.md CHANGELOG.md LICENSE Makefile uv.lock
+recursive-include src *.py
+recursive-include tests *.py
+recursive-include scripts *.sh
+recursive-include docs *.md
