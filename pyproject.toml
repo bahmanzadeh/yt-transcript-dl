@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=80,<100", "setuptools-scm>=9,<10"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yt-transcript-dl"
+dynamic = ["version"]
+description = "Download readable YouTube transcripts in one batch"
+readme = "README.md"
+requires-python = ">=3.11,<3.14"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = [
+  "typer>=0.16,<1",
+  "rich>=14,<15",
+  "yt-dlp[default]>=2026.8.19,<2027",
+]
+
+[project.scripts]
+ytt-dl = "yt_transcript_dl.cli:main"
+
+[dependency-groups]
+dev = [
+  "ruff>=0.12,<1",
+  "pytest>=8.4,<10",
+  "pytest-cov>=6,<8",
+  "build>=1.2,<2",
+  "setuptools>=80,<100",
+  "setuptools-scm>=9,<10",
+  "pre-commit>=4,<6",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools_scm]
+version_file = "src/yt_transcript_dl/_version.py"
+tag_regex = '^yt-transcript-dl-v(?P<version>\d+\.\d+\.\d+)$'
+fallback_version = "0+unknown"
+
+[tool.setuptools_scm.scm.git]
+describe_command = "git describe --dirty --tags --long --match yt-transcript-dl-v*"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+extend-exclude = ["src/yt_transcript_dl/_version.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests"]
+markers = ["integration: isolated cross-module and installed-package tests"]
+
+[tool.coverage.run]
+branch = true
+source = ["yt_transcript_dl"]
+omit = ["*/_version.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_empty = true
